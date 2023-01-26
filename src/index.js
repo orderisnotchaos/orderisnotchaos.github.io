@@ -1,13 +1,14 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
-import App from './App';
 import reportWebVitals from './reportWebVitals';
-
+import UserCredentials from './components/userCredentials/UserCredentials';
+import Canvas from './components/canvas/Canvas';
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <App />
+    <Canvas />
+    <UserCredentials />
   </React.StrictMode>
 );
 
