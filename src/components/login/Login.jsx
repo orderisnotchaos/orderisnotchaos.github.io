@@ -3,9 +3,8 @@ import React from "react";
 import PropTypes from 'prop-types';
 import "./Login.css";
 
-function Login(setters, getters){
+function Login({setters, getters}){
 
-    console.log(setters, getters);
     const handleChange = (event) => {
 
         if(event.target.name === "username"){
@@ -19,19 +18,17 @@ function Login(setters, getters){
         }
     };
 
-    function handleSubmit(setters, getters){
-       
-        let username = getters['userName'] === undefined ? '' : getters.userName;
+    function handleSubmit(){
+       console.log(getters.userName, getters.password);
+        let userName = getters['userName'] === undefined ? '' : getters.userName;
         let password = getters['password'] === undefined ? '': getters.password;
-        
-        console.log(getters['userName'], getters['password']);
-        if((password !== undefined && username !== undefined) && (password !== '' && username !== '')){
+        if(password !== '' && userName !== ''){
             fetch('http://127.0.0.1:8000/',{
         
                 method: 'POST',
                 headers: { "Content-Type": "application/json" },
                 mode:'cors',
-                body: JSON.stringify({ username, password})
+                body: JSON.stringify({userName, password})
             }).then((res) =>{
 
                 return res.json();
@@ -43,7 +40,7 @@ function Login(setters, getters){
                 }
             });
         }else{
-            setters['setErrors'](`password/username can't be empty`);
+            setters.setErrors(`password/username can't be empty`);
             
         }
 
@@ -65,7 +62,7 @@ function Login(setters, getters){
                             <label htmlFor="password" className="full-space-label">Contraseña:</label>
                             <input type="password" name="password" className="centered-input" id= "password" onChange={handleChange}></input>
         
-                            <button type="submit" className="login-button" onClick={handleSubmit(setters, getters)}> ingresar </button>
+                            <button type="submit" className="login-button" onClick={handleSubmit}> ingresar </button>
                     </div>
                 </div>
             </React.Fragment>
@@ -88,7 +85,7 @@ function Login(setters, getters){
                         <label htmlFor="password" className="full-space-label">Contraseña:</label>
                         <input type="password" name="password" className="centered-input" id= "password" onChange={handleChange}></input>
                         <p className="red">{getters.errors}</p>
-                        <button type="submit" className="login-button" onClick={handleSubmit(setters,getters)}> ingresar </button>
+                        <button type="submit" className="login-button" onClick={handleSubmit}> ingresar </button>
                 </div>
             </div>
             </React.Fragment>
