@@ -1,7 +1,20 @@
+import React from 'react';
+import Login from './components/login/Login.jsx';
 import logo from './logo.svg';
 import './App.css';
 
 function App() {
+
+  const [userName, setUserName] = React.useState('');
+  const [password, setPassword] = React.useState('');
+  const [token, setToken] = React.useState();
+  const [errors, setErrors] = React.useState([]);
+
+  const setters = {setUserName,setPassword,setToken,setErrors};
+  const getters = {userName,password,token,errors};
+  if(!token) {
+    return <Login setters ={setters} getters ={getters}/>
+  }
   return (
     <div className="App">
       <header className="App-header">
