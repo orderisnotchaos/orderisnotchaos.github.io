@@ -1,27 +1,28 @@
 import React from "react";
 
-import PropTypes from 'prop-types';
+import ThemeContext from '../../contexts.js';
 import "./Login.css";
 
-function Login({setters, getters}){
+function Login(){
 
+    const themeContext = React.useContext(ThemeContext);
     const handleChange = (event) => {
 
         if(event.target.name === "username"){
-            setters.setUserName(event.target.value);
+            themeContext['setUserName'](event.target.value);
 
         }
 
         if(event.target.name === "password"){
-            setters.setPassword(event.target.value);
+            themeContext['setPassword'](event.target.value);
 
         }
     };
 
     function handleSubmit(){
-       console.log(getters.userName, getters.password);
-        let userName = getters['userName'] === undefined ? '' : getters.userName;
-        let password = getters['password'] === undefined ? '': getters.password;
+       console.log(themeContext['userName'], themeContext['password']);
+        let userName = themeContext['userName'] === undefined ? '' : themeContext['userName'];
+        let password = themeContext['password'] === undefined ? '': themeContext['password'];
         if(password !== '' && userName !== ''){
             fetch('http://127.0.0.1:8000/',{
         
@@ -34,18 +35,18 @@ function Login({setters, getters}){
                 return res.json();
             }).then(res => {
                 if(res['message'] === `don't loose your token!`){
-                    setters.setToken(res['token']);
+                    themeContext['setToken'](res['token']);
                 }else{
-                    setters.setErrors(res['message']);
+                    themeContext['setErrors'](res['message']);
                 }
             });
         }else{
-            setters.setErrors(`password/username can't be empty`);
+            themeContext['setErrors'](`credentials can't be empty`);
             
         }
 
     }
-    if(!getters.errors){
+    if(!themeContext['errors']){
         return(
             <React.Fragment>
                 <div className="login-box">
@@ -84,7 +85,7 @@ function Login({setters, getters}){
 
                         <label htmlFor="password" className="full-space-label">Contraseña:</label>
                         <input type="password" name="password" className="centered-input" id= "password" onChange={handleChange}></input>
-                        <p className="red">{getters.errors}</p>
+                        <p className="red">{themeContext['errors']}</p>
                         <button type="submit" className="login-button" onClick={handleSubmit}> ingresar </button>
                 </div>
             </div>
@@ -92,11 +93,5 @@ function Login({setters, getters}){
         );
     }
 }
-
-Login.propTypes = {
-    setters: PropTypes.object.isRequired,
-    getters: PropTypes.object.isRequired,
-
-  }
 
 export default Login;

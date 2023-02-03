@@ -1,36 +1,29 @@
 import React from 'react';
-import Login from './components/login/Login.jsx';
-import logo from './logo.svg';
+import Login from './routes/login/Login.jsx';
 import './App.css';
 
+import ThemeContext from './contexts.js';
+
+import Main from './routes/Main/Main.jsx';
 function App() {
 
+  let mainRender;
   const [userName, setUserName] = React.useState('');
   const [password, setPassword] = React.useState('');
   const [token, setToken] = React.useState();
-  const [errors, setErrors] = React.useState([]);
+  const [errors, setErrors] = React.useState();
 
-  const setters = {setUserName,setPassword,setToken,setErrors};
-  const getters = {userName,password,token,errors};
-  if(!token) {
-    return <Login setters ={setters} getters ={getters}/>
+  if(!token){
+    mainRender = <Login />
+  }else{
+    mainRender = <Main />
   }
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <ThemeContext.Provider value = {{userName, token, setUserName, password, setPassword, setToken, errors, setErrors}}>
+        
+        {mainRender}
+      </ThemeContext.Provider >
     </div>
   );
 }
