@@ -2,5 +2,5 @@
     min-width: 15vw;
     width: 15vw;
     min-height: 80vh;
-
+    display: inline-block;
 }

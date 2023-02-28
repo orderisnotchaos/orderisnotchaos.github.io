@@ -1,0 +1,31 @@
+.bContent-wrapper{
+    border: 1px solid rgba(220, 231, 245, 0.822);
+    display: block;
+
+}
+
+.clean-link{
+    color: black;
+    text-decoration: none;
+}
+
+
+.bDescription{
+    margin: 0px;
+}
+
+.bData{
+    display: flex;
+}
+.bName{
+    width: 100%;
+    margin:0px;
+    border-bottom: 1px solid rgba(220, 231, 245, 0.822) ;
+    
+}
+
+.bProfit{  
+    padding-top:2%;
+    margin: 0px;
+    border-left: 1px solid rgba(220, 231, 245, 0.822);
+}

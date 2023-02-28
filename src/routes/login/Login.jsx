@@ -1,26 +1,41 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { Navigate } from "react-router-dom";
 
 import ThemeContext from '../../contexts.js';
 import "./Login.css";
 
+
 function Login(){
 
     const themeContext = React.useContext(ThemeContext);
+
     const handleChange = (event) => {
 
         if(event.target.name === "username"){
+            
             themeContext['setUserName'](event.target.value);
 
         }
 
         if(event.target.name === "password"){
+            
             themeContext['setPassword'](event.target.value);
 
         }
+
+        if(event.key === 'Enter'){
+            handleSubmit();
+        }
     };
 
+    useEffect(() =>{
+
+        document.onkeyup = handleChange;
+    })
+
     function handleSubmit(){
-       console.log(themeContext['userName'], themeContext['password']);
+        console.log(themeContext);
+
         let userName = themeContext['userName'] === undefined ? '' : themeContext['userName'];
         let password = themeContext['password'] === undefined ? '': themeContext['password'];
         if(password !== '' && userName !== ''){
@@ -46,6 +61,8 @@ function Login(){
         }
 
     }
+
+    if(themeContext['token']) return <Navigate to='/' replace={true}/>;
     if(!themeContext['errors']){
         return(
             <React.Fragment>
@@ -58,9 +75,9 @@ function Login(){
                     <hr></hr>
                     <div className="login-form-container">
 
-                            <label htmlFor="username" className="full-space-label">Nombre de usuario:</label>
+                            <label htmlFor="username" className="full-space-label-name">Usuario/mail:</label>
                             <input type="text" name="username"className="centered-input" id="username" onChange={handleChange}></input>
-                            <label htmlFor="password" className="full-space-label">Contraseña:</label>
+                            <label htmlFor="password" className="full-space-label-password">Contraseña:</label>
                             <input type="password" name="password" className="centered-input" id= "password" onChange={handleChange}></input>
         
                             <button type="submit" className="login-button" onClick={handleSubmit}> ingresar </button>
@@ -80,13 +97,13 @@ function Login(){
                 <hr></hr>
                 <div className="login-form-container">
 
-                        <label htmlFor="username" className="full-space-label">Nombre de usuario:</label>
-                        <input type="text" name="username"className="centered-input" id="username" onChange={handleChange}></input>
+                    <label htmlFor="username" className="full-space-label">Nombre de usuario:</label>
+                    <input type="text" name="username"className="centered-input" id="username" onChange={handleChange}></input>
 
-                        <label htmlFor="password" className="full-space-label">Contraseña:</label>
-                        <input type="password" name="password" className="centered-input" id= "password" onChange={handleChange}></input>
-                        <p className="red">{themeContext['errors']}</p>
-                        <button type="submit" className="login-button" onClick={handleSubmit}> ingresar </button>
+                    <label htmlFor="password" className="full-space-label">Contraseña:</label>
+                    <input type="password" name="password" className="centered-input" id= "password" onChange={handleChange}></input>
+                    <p className="red">{themeContext['errors']}</p>
+                    <button type="submit" className="login-button" onClick={handleSubmit}> ingresar </button>
                 </div>
             </div>
             </React.Fragment>

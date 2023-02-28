@@ -9,16 +9,26 @@
     height: auto;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
     background-color: #f8f8f8;
+
 }
 
-.full-space-label{
+.full-space-label-name{
+    margin-left: 10%;
+
+
+}
+
+.full-space-label-password{
     margin-left: 3%;
-    display: block;
+
 }
 
 .centered-input{
+    box-sizing: border-box;
     margin-left: 20%;
     align-items: center;
+    width: 50%;
+    min-width: 100px;
 }
 
 .userCredentials-title{
@@ -32,12 +42,19 @@
 .login-button{
     all: unset;
     cursor: pointer;
+    box-sizing: border-box;
     background-color: rgba(205, 209, 228);
-    margin-left: 74%;
-    margin-top: 6%;
+
 }
 
+.login-form-container .login-button{ 
+    position:absolute;
+    bottom: 5px;
+    right: 5px;
+}
 .login-form-container{
-
+    position: relative;
     padding: 5%;
+    padding-bottom: 20%;
+    max-width: 430px;
 }
