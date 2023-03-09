@@ -3,46 +3,48 @@ import { Navigate } from "react-router-dom";
 
 import './Main.css';
 import NavBar from "../../components/NavBar/NavBar";
-
+import MaxBusinessReached from "../../components/MaxBusinessReached/MaxBusinessReached";
 import SideBar from "../../components/SideBar/SideBar";
-import ThemeContext from "../../contexts";
+import ThemeContext from "../../contexts/themeContext";
 import Business from "../../components/Business/Business";
-function Main (){
+import NewBusiness from "../../components/NewBusiness/NewBusiness";
+import NewBusinessServerError from "../../components/ServiceUnavailable/ServiceUnavailable.jsx";
+import GeneralView from "../../components/GralView/GeneralView";
+import BusinessDetails from "../../components/BusinessDetails/BusinessDetails";
+import WelcomeComponent from "../../components/WelcomeComponent/WelcomeView";
+function Main(){
 
     const themeContext = React.useContext(ThemeContext);
     const [wasInvalid, setWasInvalid] =React.useState(false);
-    const [content, setContent] = React.useState([]);
+    const [businesses, setBusinesses] = React.useState([]);
+    React.useEffect(()=>{
 
-    let token =themeContext.token; 
-    async function apiCall(token, content, setContent){
-    if(token !== null || token !== undefined || token !== ''){
+        if(themeContext.token !== undefined){
         
-        if(content === null ){
-
-            
-            fetch('http://127.0.0.1:8000/',{
+            fetch(themeContext.APIURL,{
                 method:'GET',
-                headers: { "Content-Type": "application/json", 'Authorization':token},
+                headers: { "Content-Type": "application/json", 'Authorization':themeContext.token},
                 mode:'cors',
-            }).then((res) =>{
-                return res.json();
-            }).then((res) =>{
-                if(res['tokenVerification'] === 'NOK'){
-                    themeContext.setToken(null);
-                    setWasInvalid(true);
-                }
+                }).then((res) =>{ 
+                    return res.json();
+                }).then((res) =>{
+                    if(res.ok === false){
+                        themeContext.setToken(null);
+                        setWasInvalid(true);
+                    }
 
-                if(res['tokenVerification'] === 'OK'){
-                    console.log("----");
-                    setContent({bAvatar: '404.jpg', bName:'admin-finance'});
-                } 
-            }).catch((em) =>{
-                console.error(em);
-            });
+                    if(res.ok === true){
+
+                        setBusinesses(res.data);
+
+                    } 
+                }).catch((em) =>{
+                    console.error(em);
+                });
         }
-    }
-}
-    console.log(content);
+
+    },[themeContext]);
+
     if(wasInvalid === true){
         setWasInvalid(false);
         return <Navigate to='/expired' replace={true} />;
@@ -50,21 +52,34 @@ function Main (){
     if(themeContext.token === undefined || themeContext.token === null || themeContext.token === ''){
 
         return (<Navigate to='/login' replace={true}/>);
-     }
-    return (
-        <React.Fragment>
-            <NavBar />
-            <div className='main-content'>
+        }
+        return (
+            <React.Fragment>
+                <NavBar />
                 <SideBar />
-                <div id="content-wrapper" className="d-flex flex-column">
-                    <Business data={content}></Business>
-                    
-                     
-                </div>
-            </div>
-        </React.Fragment>
-    );
+                <div className='main-content'>
 
+                    <div id="content-wrapper" className="content-wrapper">
+                        <div id="businesses-component" className="businesses-container"> 
+                            {businesses[0] !== undefined ?businesses.map((business, i)=>{
+
+                                return (<Business data={business} businessesLength={businesses.length}key= {i}/>);
+                            }): <WelcomeComponent />}
+                        </div>
+                        <NewBusiness setBusinesses={setBusinesses} />
+                        <NewBusinessServerError />
+                        <GeneralView data = {businesses}/>
+                        <MaxBusinessReached></MaxBusinessReached>
+
+                        <div id="businesses-details-component" className="businesses-details">
+                            {businesses[0]!== undefined ?businesses.map((business,i) =>{
+                                return (<BusinessDetails data={business} setBusinesses={setBusinesses} key={i}></BusinessDetails>)
+                            }):<></>}
+                        </div>
+                    </div>
+                </div>
+            </React.Fragment>
+        ); 
 }
 
 export default Main;

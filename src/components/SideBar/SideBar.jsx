@@ -1,15 +1,21 @@
 import React from "react";
 import './SideBar.css';
-
-import { Link } from "react-router-dom";
+import changeViewOnClick from "../../js files/changeViewOnClick";
 
 function SideBar(){
+
 
     return (
         <React.Fragment>
             <div className="sidebar">
-                <Link to='/newBusiness' className='sidebar-link'> Agregar Negocio</Link>
-                <hr></hr>
+
+                <hr className="sidebar-separator"></hr>
+                <div className="link" onClick={changeViewOnClick} id="businesses">Inicio</div>
+                <hr className="sidebar-separator"></hr>
+                <div className="link" onClick={changeViewOnClick} id="new-business">Nuevo Negocio</div>
+                <hr className="sidebar-separator"></hr>
+                <div className="link" onClick={changeViewOnClick} id="general-view">Vista general</div>
+                <hr className="sidebar-separator"></hr>
             </div>    
         </React.Fragment>
     );

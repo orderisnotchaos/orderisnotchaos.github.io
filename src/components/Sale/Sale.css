@@ -1,0 +1,40 @@
+
+.sale-container{
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+    min-height: none;
+    height:min-content;
+    min-width: none;
+
+}
+
+.sold-product-name{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 25%;
+}
+
+.sold-product-quantity{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 25%;
+}
+.sold-product-price{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 25%;
+}
+
+.sold-product-time{
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    width: 25%;
+    max-width: 25%;
+    font-size: small;
+    overflow-x:hidden;
+}

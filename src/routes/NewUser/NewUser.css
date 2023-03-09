@@ -1,0 +1,143 @@
+
+.new-user-view-container{
+
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    flex-wrap: wrap;
+    background-color: white;
+}
+
+.new-user-form-container{
+
+    margin-left:30%;
+    margin-top:25vh;
+    width: 40%;
+    height: 50vh;
+    background-color: lightblue;
+}
+
+.new-user-title{
+    margin: 0;
+    width: 100%;
+    background-color: rgb(83, 178, 209);
+}
+
+.new-user-input-container{
+
+    width: 48%;
+    min-width: none;
+    margin-right:2%;
+    max-width: 177px;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.input{
+    width: 100%;
+    display: flex;
+    max-height: 177px;
+    margin-top: 2.5%;
+    margin-bottom: 2.5%;
+    justify-content: flex-start;
+}
+
+.new-user-label{
+    display: flex;
+    justify-content: flex-start;
+
+    width: 50%;
+}
+
+.new-user-p{
+    margin: 0;
+    display: flex;
+    justify-content: flex-start;
+    width: 80%;
+    margin-left: 2%;
+    background-color: rgb(83, 178, 209);
+}
+
+.select-container{
+    width: 50%;
+    display: flex;
+    justify-content: flex-start;
+}
+.new-user-select{
+    all: unset;
+    background-color: rgb(83, 178, 209);
+    margin-left: 2%;
+    width: 80%;
+    min-width: fit-content;
+}
+
+.new-user-input{
+    min-width: none;
+    max-width: 177px;
+}
+
+.select-option-0{
+    display: none;
+    font-size: larger;
+    background-color: rgb(83, 178, 209);
+    border-bottom: 1px solid black;
+}
+
+.new-user-submit-button-container{
+    display: flex;
+    flex-wrap: wrap;
+    width: 98%;
+    height:40%;
+    align-items: flex-end;
+    justify-content: flex-end;
+}
+.new-user-submit-button{
+    all: unset;
+    cursor: pointer;
+    width: 15%;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgb(153, 152, 152);
+}
+
+.new-user-submit-button:active{
+
+    background-color: rgb(129, 128, 128);
+}
+
+.user-creation-success{
+    display: none;
+    width: 100vw;
+    height: 100vh;
+    align-items: center;
+    background-color: rgb(161, 255, 161);
+}
+
+.user-creation-success-text-container{
+
+    width: 100%;
+    height: min-content;
+}
+
+.user-creation-success-link{
+
+        all:unset;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 100%;
+        width: inherit;
+        text-decoration: underline;
+        color: blue;
+        font-size: medium;
+}
+
+.user-creation-success-link:hover{
+    cursor: pointer;
+}
+
+.user-creation-success-link:active{
+    color: rgb(243, 157, 71);
+}

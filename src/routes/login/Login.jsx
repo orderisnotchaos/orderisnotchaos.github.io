@@ -1,14 +1,14 @@
 import React, { useEffect } from "react";
-import { Navigate } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 
-import ThemeContext from '../../contexts.js';
+import ThemeContext from '../../contexts/themeContext.js';
 import "./Login.css";
 
 
 function Login(){
 
     const themeContext = React.useContext(ThemeContext);
-
+    const [servOff, setServOff] = React.useState(false);
     const handleChange = (event) => {
 
         if(event.target.name === "username"){
@@ -34,12 +34,11 @@ function Login(){
     })
 
     function handleSubmit(){
-        console.log(themeContext);
 
         let userName = themeContext['userName'] === undefined ? '' : themeContext['userName'];
         let password = themeContext['password'] === undefined ? '': themeContext['password'];
         if(password !== '' && userName !== ''){
-            fetch('http://127.0.0.1:8000/',{
+            fetch(themeContext.APIURL,{
         
                 method: 'POST',
                 headers: { "Content-Type": "application/json" },
@@ -54,61 +53,52 @@ function Login(){
                 }else{
                     themeContext['setErrors'](res['message']);
                 }
+            }).catch(e =>{
+                
+                console.log(e);
+                setServOff(true);
             });
         }else{
-            themeContext['setErrors'](`credentials can't be empty`);
+            themeContext['setErrors']("las credenciales no pueden estár vacías");
             
         }
 
     }
 
     if(themeContext['token']) return <Navigate to='/' replace={true}/>;
-    if(!themeContext['errors']){
+
+    if(servOff === true) return <Navigate to = '/serverOffline' replace={true} />; 
+    if(themeContext['errors']){
+        document.querySelector('.login-errors-p').style.display="block";
+    }
+
         return(
             <React.Fragment>
-                <div className="login-box">
-                    <div className="userCredentials-title">
-                        <div className="login-title">
-                            <p>Ingreso</p>
+                    <div className="login">
+                        <div className="login-box">
+                            <div className="userCredentials-title">
+                                <p className="login-title">Ingreso</p>
+                            </div>
+                            <hr className="login-hr"></hr>
+                            <div className="login-form-container">
+
+                                    <label htmlFor="username" className="full-space-label-name">Usuario/mail:</label>
+                                    <input type="text" name="username"className="centered-input" id="username" onChange={handleChange}></input>
+                                    <label htmlFor="password" className="full-space-label-password">Contraseña:</label>
+                                    <input type="password" name="password" className="centered-input" id= "password" onChange={handleChange}></input>
+                                    <p className="login-errors-p">{themeContext['errors']}</p>
+                                    
+                            </div>
+                           
+                            <div className="login-clicks-container">
+                                <Link to={'/createUser'} className="create-user-link">¿no tienes cuenta?</Link>
+                                <button type="submit" className="login-button" onClick={handleSubmit}> ingresar </button>
+                            </div>
+
                         </div>
                     </div>
-                    <hr></hr>
-                    <div className="login-form-container">
-
-                            <label htmlFor="username" className="full-space-label-name">Usuario/mail:</label>
-                            <input type="text" name="username"className="centered-input" id="username" onChange={handleChange}></input>
-                            <label htmlFor="password" className="full-space-label-password">Contraseña:</label>
-                            <input type="password" name="password" className="centered-input" id= "password" onChange={handleChange}></input>
-        
-                            <button type="submit" className="login-button" onClick={handleSubmit}> ingresar </button>
-                    </div>
-                </div>
             </React.Fragment>
         );
-    }else{
-        return(
-            <React.Fragment>
-            <div className="login-box">
-                <div className="userCredentials-title">
-                    <div className="login-title">
-                        <p>Ingreso</p>
-                    </div>
-                </div>
-                <hr></hr>
-                <div className="login-form-container">
-
-                    <label htmlFor="username" className="full-space-label">Nombre de usuario:</label>
-                    <input type="text" name="username"className="centered-input" id="username" onChange={handleChange}></input>
-
-                    <label htmlFor="password" className="full-space-label">Contraseña:</label>
-                    <input type="password" name="password" className="centered-input" id= "password" onChange={handleChange}></input>
-                    <p className="red">{themeContext['errors']}</p>
-                    <button type="submit" className="login-button" onClick={handleSubmit}> ingresar </button>
-                </div>
-            </div>
-            </React.Fragment>
-        );
-    }
 }
 
 export default Login;

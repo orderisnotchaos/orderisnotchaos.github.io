@@ -1,33 +1,35 @@
 import React from "react";
-import { Link } from "react-router-dom";
 
+import changeViewOnClick from "../../js files/changeViewOnClick";
+
+import Sales from '../Sales/Sales';
 import './Business.css';
 
 
 
 export default function Business(props){
-    console.log(props);
-    let imgPath ='../../assets/images/';
+    
     return (
         <>  
            
-                <div className="bContent-wrapper">
-                    {//<img className="bImage" src={imgPath/props.data.bAvatar} alt={`${props.data.bName}'s avatar`}></img>
-                    } 
+            <div id={`${props.data.name}-component`} className="business">
+                {//<img className="bImage" src={imgPath/props.data.bAvatar} alt={`${props.data.bName}'s avatar`}></img>
+                } 
+                <h3 className="bName" id={`${props.data.name}`} onClick={changeViewOnClick}>{`${props.data.name}`}</h3>
 
-                    <Link to={`${props}`} className="clean-link">
-                        <h3 className="bName"> ADMIN-FINANCE</h3>
-                    </Link>
-                    <div className="bData">
-                    <p className="bDescription">
-                        Lorem ipsum dolor sit amet consectetur, adipisicing elit. Eligendi aut
-                        repellat deserunt sint eveniet rem cum accusamus, earum repellendus nam, 
-                        recusandae, praesentium quae. Nostrum magnam alias aspernatur nisi cumque architecto?
-                    </p>
-                    <p className="bProfit"> $0.00 </p>
+                <div className="bData">
+                    <h4 className="last-sales">Ultimas ventas</h4>
+                    <div className='sales-title'>
+                            <p className='sales-title-column'>nombre</p>
+                            <p className='sales-title-column'>cantidad</p>
+                            <p className='sales-title-column'>precio</p>
+                            <p className='sales-title-column'>fecha</p>
+                        </div>
+                    <div className="business-product-sales-container">
+                        <Sales data={{sales:props.data.Sales}} key = {props.data}/>
                     </div>
-
                 </div>
+            </div>
         </>
     );
 
