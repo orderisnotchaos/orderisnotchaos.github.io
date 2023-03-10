@@ -10,8 +10,13 @@
 }
 
 .link{
-    padding-top: 10px;
-    padding-bottom: 10px;
+    display: flex;
+    justify-content: center;
+    padding-top: .7rem;
+    padding-bottom: .7rem;
+    width: 100%;
+    margin: 0;
+    text-decoration: none;
     color:black;
     background-color: lightgray;
 }

@@ -1,11 +1,10 @@
-import { Navigate } from "react-router-dom";
 import viewsList from "./viewsList.js";
 
 export default function changeViewOnClick(event){
 
         for(let i=0;i<viewsList.length;i++){
                 if(document.getElementById(`${viewsList[i]}-component`) !== null){
-                let component = document.getElementById(`${viewsList[i]}-component`);  
+                        let component = document.getElementById(`${viewsList[i]}-component`);  
                         switch(component.id){   
 
                                 case "new-business-component":
@@ -37,11 +36,12 @@ export default function changeViewOnClick(event){
                                         component.style.display = "none";
                                         break;
                         }
-                        
+                                
                 }else{
-                        return <Navigate to= '/' replace={false}/>;
+                        return window.location.href = 'http://localhost:3000/';
 
                 }
         }
-        document.getElementById(`${event.target.id}-component`).style.display = "block";    
+
+        return document.getElementById(`${event.target.id}-component`).style.display = "flex";    
 }

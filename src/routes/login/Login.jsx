@@ -50,6 +50,10 @@ function Login(){
             }).then(res => {
                 if(res['message'] === `don't loose your token!`){
                     themeContext['setToken'](res['token']);
+                    themeContext['setUserName'](res['user'].name);
+                    themeContext['setUMail'](res['user'].mail);
+                    themeContext['setDType'](res['user'].dType);
+                    themeContext['setDNumber'](res['user'].dNumber);
                 }else{
                     themeContext['setErrors'](res['message']);
                 }

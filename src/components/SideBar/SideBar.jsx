@@ -1,6 +1,7 @@
 import React from "react";
 import './SideBar.css';
 import changeViewOnClick from "../../js files/changeViewOnClick";
+import { Link } from "react-router-dom";
 
 function SideBar(){
 
@@ -10,11 +11,11 @@ function SideBar(){
             <div className="sidebar">
 
                 <hr className="sidebar-separator"></hr>
-                <div className="link" onClick={changeViewOnClick} id="businesses">Inicio</div>
+                <Link to = '/' className="link" onClick ={changeViewOnClick}id="businesses">Inicio</Link>
                 <hr className="sidebar-separator"></hr>
-                <div className="link" onClick={changeViewOnClick} id="new-business">Nuevo Negocio</div>
+                <Link to = '/' className="link" onClick ={changeViewOnClick}id="new-business">Nuevo Negocio</Link>
                 <hr className="sidebar-separator"></hr>
-                <div className="link" onClick={changeViewOnClick} id="general-view">Vista general</div>
+                <Link to = '/' className="link" onClick ={changeViewOnClick}id="general-view">Vista General</Link>
                 <hr className="sidebar-separator"></hr>
             </div>    
         </React.Fragment>

@@ -38,7 +38,7 @@ function NavBar(){
                                 </li>
 
                                 <li className='user-options-last-li'>
-                                    <Link to='/account-configuration' className='ham-menu-link'>
+                                    <Link to='/configuration' className='ham-menu-link'>
                                         configuración
                                     </Link>
                                 </li>

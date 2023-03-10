@@ -93,42 +93,35 @@ export default function GeneralView(props){
 
     return(
         <React.Fragment>
-            <div id="general-view-component" className="general-view"> 
+            <div id="general-view-component" className="general-view-container"> 
                 <div className="top-content">
-                    <div className="general-view-row1">
-                            <h3 className="general-view-h3">Ingresos del día</h3>
+                    <h3 className="general-view-h3">Ingresos del día</h3>
+
+                    <div className="pie-chart-container">
+                        <div id="pie-chart" className="pie-chart" style={{background:`conic-gradient(${conicGradientArgs})`}} ></div>
                     </div>
-                    <div className="general-view-row2">
 
-                        <div className="pie-chart-container">
-                            <div id="pie-chart" className="pie-chart" style={{background:`conic-gradient(${conicGradientArgs})`}} ></div>
-                        </div>
+                    <div id="income-chart" className="income-chart-container">
+                        <ul className="businesses-profits">
+                            {props.data.map((business,i)=>{
 
-                        <div id="income-chart" className="income-chart-container">
-                            <ul className="businesses-profits">
-                                {props.data.map((business,i)=>{
-
-                                    return(
-                                        <>
-                                            <li className="business-name" key={business.name}><div className={totalIncome === 0? "zero-color":`pie-chart-color-${colors[i]}`}></div><p className="business-name-p">{business.name}:</p></li>
-                                            <li className="business-income" key={business.name+business.income}> ${incomes[i]}</li>
-                                            <li className="business-income-percentage"  key={business.name+"%"}>{totalIncome === 0 ? 0 : (incomes[i]/totalIncome*100).toFixed(2)}%</li>
-                                        </>
-                                    );
-                                })}
-                                <ul className="total-income-container">
-                                    <li className="total-income-text"><div className="total-color"></div>total: </li>
-                                    <li className="total-income-number">${totalIncome}</li>
-                                    <li className="total-income-percentage">100%</li>
-                                </ul>
-                            </ul>
-                        </div>
+                                return(
+                                    <>
+                                        <li className="business-name" key={business.name}><div className={totalIncome === 0? "zero-color":`pie-chart-color-${colors[i]}`}></div><p className="business-name-p">{business.name}:</p></li>
+                                        <li className="business-income" key={business.name+business.income}> ${incomes[i]}</li>
+                                        <li className="business-income-percentage"  key={business.name+"%"}>{totalIncome === 0 ? 0 : (incomes[i]/totalIncome*100).toFixed(2)}%</li>
+                                    </>
+                                );
+                            })}
+                        </ul>
+                        <ul className="total-income-container">
+                            <li className="total-income-text" key={1}><div className="total-color"></div>total: </li>
+                            <li className="total-income-number" key={2}>${totalIncome}</li>
+                            <li className="total-income-percentage" key={3}>100%</li>
+                        </ul>
                     </div>
-                </div>
-                <div className="general-view-row-3">
-
-                    <Line data={businessesData}/>
-                </div>
+                </div>  
+                <Line data={businessesData}/>
             </div>
         </React.Fragment>
     );
