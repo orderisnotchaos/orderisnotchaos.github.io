@@ -1,4 +1,5 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import "./GeneralView.css";
 import {
     Chart as ChartJS,
@@ -12,10 +13,47 @@ import {
   } from 'chart.js';
 
 import {Line} from "react-chartjs-2";
+import ThemeContext from "../../contexts/themeContext";
+import NavBar from "../../components/NavBar/NavBar";
+import SideBar from "../../components/SideBar/SideBar";
 
 
 
-export default function GeneralView(props){
+export default function GeneralView(){
+
+
+    let themeContext = React.useContext(ThemeContext);
+
+    const navigate = useNavigate();
+    const [wasInvalid, setWasInvalid] =React.useState(false);
+    const [businesses, setBusinesses] = React.useState();
+
+    React.useEffect(() =>{
+        fetch(themeContext.APIURL+'general-view',{
+            method:'GET',
+            headers: { "Content-Type": "application/json", 'Authorization':themeContext.token},
+            mode:'cors',
+            }).then((res) =>{ 
+                return res.json();
+            }).then((res) =>{
+                if(res.ok === false){
+                    themeContext.setToken(null);
+                    setWasInvalid(true);
+                }
+
+                if(res.ok === true){
+
+                    setBusinesses(res.businesses);
+                } 
+            }).catch((em) =>{
+                console.error(em);
+            });
+
+    },[themeContext]);
+    if(wasInvalid === true){
+        setWasInvalid(false);
+        return navigate('/expired');
+    }
 
     const colors = ["red","green","blue","yellow","orange","brown","lightblue","black","lightgreen","gray"];
         
@@ -24,29 +62,30 @@ export default function GeneralView(props){
     let conicGradientArgs= "";
 
     let incomes = [];
-    incomes = props.data.map((business)=>{
+    incomes = businesses ? businesses.map((business)=>{
         let bIncome=0;
         business.Sales.forEach(sale=>{
-            bIncome+=sale.value;
+            bIncome+=sale.value*sale.quantity;
         })
         return bIncome;
-    });
+    }): [];
 
     function totalIncomeByDay(businesses) {
         const dailyTotalIncome = [];
         const days =[];
 
-        businesses.forEach(business => {
+        businesses ? businesses.forEach(business => {
           business.Sales.forEach(sale => {
             const day =new Date(sale.time).toISOString().split('T')[0];
+
             if(days[days.length-1] !== day){
                 days.push(day);
-                dailyTotalIncome.push(sale.value);
+                dailyTotalIncome.push(sale.value*sale.quantity);
             }else{
-                dailyTotalIncome[days.length-1] += sale.value; 
+                dailyTotalIncome[days.length-1] += sale.value*sale.quantity;  
             }
           });
-        });
+        }):days.push(0);
         return {dailyTotalIncome,days};
       }
     ChartJS.register(
@@ -58,7 +97,7 @@ export default function GeneralView(props){
         Tooltip,
         Legend
       );
-        let data =totalIncomeByDay(props.data);
+        let data =totalIncomeByDay(businesses);
 
         let businessesData ={
         labels: data.days,
@@ -93,9 +132,11 @@ export default function GeneralView(props){
 
     return(
         <React.Fragment>
+            <NavBar />
+            <SideBar />
             <div id="general-view-component" className="general-view-container"> 
                 <div className="top-content">
-                    <h3 className="general-view-h3">Ingresos del día</h3>
+                    <h3 className="general-view-h3">Ingresos</h3>
 
                     <div className="pie-chart-container">
                         <div id="pie-chart" className="pie-chart" style={{background:`conic-gradient(${conicGradientArgs})`}} ></div>
@@ -103,16 +144,16 @@ export default function GeneralView(props){
 
                     <div id="income-chart" className="income-chart-container">
                         <ul className="businesses-profits">
-                            {props.data.map((business,i)=>{
+                            {businesses ? businesses.map((business,i)=>{
 
                                 return(
                                     <>
                                         <li className="business-name" key={business.name}><div className={totalIncome === 0? "zero-color":`pie-chart-color-${colors[i]}`}></div><p className="business-name-p">{business.name}:</p></li>
                                         <li className="business-income" key={business.name+business.income}> ${incomes[i]}</li>
                                         <li className="business-income-percentage"  key={business.name+"%"}>{totalIncome === 0 ? 0 : (incomes[i]/totalIncome*100).toFixed(2)}%</li>
-                                    </>
+                            </>
                                 );
-                            })}
+                            }): <></>}
                         </ul>
                         <ul className="total-income-container">
                             <li className="total-income-text" key={1}><div className="total-color"></div>total: </li>

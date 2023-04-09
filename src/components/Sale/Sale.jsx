@@ -14,10 +14,11 @@ export default function Sale(props){
       }
     return(
             <div className='sale-container'>
-                <label className='sold-product-name'>{props.data.name}</label>
-                <label className='sold-product-quantity'>{props.data.quantity}</label>
-                <label className='sold-product-price'>{props.data.value}</label>
-                <time className='sold-product-time'>{transformDateFormat(props.data.time)}</time>
+                <label className='sold-name'>{props.data.name}</label>
+                <label className='sold-quantity'>{props.data.quantity}</label>
+                <label className='sold-unit-price'>${props.data.value}</label>
+                <label className='sold-total-price'>${props.data.value * props.data.quantity}</label>
+                <time className='sold-product-time'><p className='time'>{transformDateFormat(props.data.time)}</p></time>
             </div>
     );
 }

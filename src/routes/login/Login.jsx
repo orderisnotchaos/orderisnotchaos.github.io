@@ -1,6 +1,5 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { Link, Navigate } from "react-router-dom";
-
 import ThemeContext from '../../contexts/themeContext.js';
 import "./Login.css";
 
@@ -9,6 +8,7 @@ function Login(){
 
     const themeContext = React.useContext(ThemeContext);
     const [servOff, setServOff] = React.useState(false);
+
     const handleChange = (event) => {
 
         if(event.target.name === "username"){
@@ -28,22 +28,19 @@ function Login(){
         }
     };
 
-    useEffect(() =>{
-
-        document.onkeyup = handleChange;
-    })
-
     function handleSubmit(){
 
         let userName = themeContext['userName'] === undefined ? '' : themeContext['userName'];
         let password = themeContext['password'] === undefined ? '': themeContext['password'];
+
+
         if(password !== '' && userName !== ''){
+            console.log(JSON.stringify({userName,password}));
             fetch(themeContext.APIURL,{
-        
                 method: 'POST',
-                headers: { "Content-Type": "application/json" },
+                headers: { "Content-Type": "application/json"},
                 mode:'cors',
-                body: JSON.stringify({userName, password})
+                body: JSON.stringify({userName,password})
             }).then((res) =>{
 
                 return res.json();
@@ -51,9 +48,10 @@ function Login(){
                 if(res['message'] === `don't loose your token!`){
                     themeContext['setToken'](res['token']);
                     themeContext['setUserName'](res['user'].name);
-                    themeContext['setUMail'](res['user'].mail);
+                    themeContext['setMail'](res['user'].mail);
                     themeContext['setDType'](res['user'].dType);
                     themeContext['setDNumber'](res['user'].dNumber);
+                    themeContext['setBusinesses'](res['businesses']);
                 }else{
                     themeContext['setErrors'](res['message']);
                 }

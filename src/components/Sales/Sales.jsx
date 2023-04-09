@@ -12,7 +12,7 @@ export default function Sales(props){
                     return (
                         <>
                             <Sale data={sale} key={sale.time}></Sale>
-                            <hr></hr>
+                            <hr className='sales-hr'></hr>
                         </>
                     );
                 })}

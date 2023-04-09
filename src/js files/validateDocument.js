@@ -1,7 +1,8 @@
 
 
-export default function validateDocument(document){
-    if(document.isNumber() && (document.length > 0 || document.length < 8)){
+export default function validateDocument(docNumber){
+    
+    if(typeof +docNumber === 'number' && (docNumber.length > 0 || docNumber.length < 8)){
 
         return true;
     }else{

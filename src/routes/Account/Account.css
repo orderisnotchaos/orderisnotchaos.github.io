@@ -1,4 +1,4 @@
-.configuration-container{
+.account-container{
     position: absolute;
     left: 15%;
     top:3.8rem;
@@ -8,31 +8,23 @@
     flex-wrap: wrap;
     background-color: rgba(205, 241, 253, 0.637);
 }
-
-.configuration-title{
+.account-title{
     display: flex;
     align-items:center;
     justify-content: center;
     margin: 0;
     width: 100%;
-    height: 10%;
+    height: 40%;
+    background:rgb(91, 91, 236);
 }
 
-.configuration-content{
+.account-details-container{
 
     display: flex;
     flex-wrap: wrap;
     width: 100%;
-    height: 90%;
-}
+    height: 36%;
 
-.configuration-content-item{
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
-    height: 20%;
 }
 
 .user-name-config{
@@ -46,105 +38,6 @@
     border: 1px solid gray;
 }
 
-.config-container{
-    margin-left:1%;
-    margin-top: 3%;
-    display: flex;
-    flex-wrap: wrap;
-    align-items: flex-end;
-    justify-content: flex-start;
-    width: 100%;
-    height: 100%;
-    border: 1px solid gray;
-}
-
-.config-h2{
-    margin: 0;
-    width: 100%;
-    height: 30%;
-    display: flex;
-    align-items: center;
-    justify-content: flex-start;
-    background-color: rgba(102, 129, 138, 0.849);
-}
-
-.user-name-input-container{
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    justify-content: flex-start;
-    width: 55%;
-    height: 70%;
-}
-
-.email-input-container{
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    justify-content: flex-start;
-    width: 55%;
-    height: 70%;
-}
-
-.passwords-container{
-    width: 55%;
-}
-.old-password-input-container{
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    justify-content: flex-start;
-    width: 100%;
-    height: 23.33%;
-}
-.new-password-input-container{
-    margin-top: 1.5%;
-    display: flex;
-    flex-wrap: wrap;
-    align-items: flex-start;
-    justify-content: flex-start;
-    width: 100%;
-    height: 23.33%;
-}
-.confirm-new-password-input-container{
-    margin-top: 1.5%;
-    display: flex;
-    flex-wrap: wrap;
-    align-items: flex-start;
-    justify-content: flex-start;
-    width: 100%;
-    height: 23.33%;
-}
-.config-button-container{
-    display: flex;
-    align-items: flex-end;
-    justify-content: flex-end;
-    width: 45%;
-    height: 70%;
-}
-
-.config-button{
-    margin-right:1%;
-}
-.config-label{
-    width:50%;
-    display: flex;
-    justify-content: flex-start;
-}
-
-.document-config-label{
-    width: 40%;
-    display: flex;
-    justify-content: flex-start;
-}
-
-.config-p{
-    display:flex;
-    justify-content: flex-start;
-    margin: 0;
-    width: 100%;
-
-}
 .config-input{
     min-width: none;
     width:30%;

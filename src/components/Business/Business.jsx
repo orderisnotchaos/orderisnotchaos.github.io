@@ -1,32 +1,39 @@
 import React from "react";
 
-import changeViewOnClick from "../../js files/changeViewOnClick";
-
 import Sales from '../Sales/Sales';
 import './Business.css';
+import { useNavigate } from "react-router-dom";
+import ThemeContext from "../../contexts/themeContext";
 
 
 
 export default function Business(props){
-    
+
+    const themeContext = React.useContext(ThemeContext);
+    const navigate = useNavigate();
+    function handleClick(){
+        themeContext.setBName(props.name);
+        navigate(`/${themeContext.userName}/${props.name}`);
+    }
+    console.log(props);
     return (
         <>  
            
-            <div id={`${props.data.name}-component`} className="business">
-                {//<img className="bImage" src={imgPath/props.data.bAvatar} alt={`${props.data.bName}'s avatar`}></img>
-                } 
-                <h3 className="bName" id={`${props.data.name}`} onClick={changeViewOnClick}>{`${props.data.name}`}</h3>
+            <div id={`${props.name}-component`} className="business">
+
+                <h3 className="bName" id={`${props.name}`} onClick={handleClick}>{`${props.name}`}</h3>
 
                 <div className="bData">
                     <h4 className="last-sales">Ultimas ventas</h4>
                     <div className='sales-title'>
-                            <p className='sales-title-column'>nombre</p>
-                            <p className='sales-title-column'>cantidad</p>
-                            <p className='sales-title-column'>precio</p>
-                            <p className='sales-title-column'>fecha</p>
-                        </div>
+                        <p className='sales-title-p'>nombre</p>
+                        <p className='sales-title-p'>cantidad</p>
+                        <p className='sales-title-p'>precio unitario</p>
+                        <p className='sales-title-p'>valor total</p>
+                        <p className='sales-title-p'>fecha</p>
+                    </div>
                     <div className="business-product-sales-container">
-                        <Sales data={{sales:props.data.Sales}} key = {props.data}/>
+                        <Sales data={{sales:props.Sales}} key = {props}/>
                     </div>
                 </div>
             </div>

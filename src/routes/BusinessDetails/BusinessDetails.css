@@ -1,17 +1,22 @@
 .business-details{
-    width: 100%;
+    width: 85%;
     height: 100%;
+    top:3.8rem;
+    left: 15%;
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
     position: absolute;
 }
 
-.category{
-    
-    border-right: 1px solid rgb(114, 202, 56);
+.add-product-window{
+    display: none;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: 100;
+    background-color: rgba(0,0,0,.2);
 }
-
 .detail-categories{
     background-color: greenyellow;
     border: 1px solid rgb(114, 202, 56);
@@ -24,11 +29,12 @@
 
     margin: 0;
 }
+
 .products-card{
     display: flex;
     flex-wrap: wrap;
     position: relative;
-    justify-content: center;
+    justify-content: flex-end;
     width: 55%;
     height: 60%;
     margin-left: 3%;
@@ -39,10 +45,27 @@
     border-left: 1px solid rgba(0,0,0,0.1);
 }
 
+.new-product-card{
+        display: flex;
+        flex-wrap: wrap;
+        position: relative;
+        justify-content: flex-end;
+        align-items: flex-start;
+        width: 70%;
+        height: 30%;
+        margin-left: 20%;
+        margin-top: 20%;
+        background-color: rgb(233,233,233);
+        box-shadow: 5px 5px 5px black;
+        border-top: 1px solid rgba(0,0,0,0.1);
+        border-left: 1px solid rgba(0,0,0,0.1);
+}
+
 .products-container{
-    height: 92%;
-    width: 90%;
+    height: 80%;
+    width: 93%;
     margin: 0;
+    margin-right: 3.5%;
     overflow-y: scroll;
     background-color: white;
 }
@@ -69,6 +92,8 @@
 }
 .last-tickets-generated{
     display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
     width: 30%;
     height: 60%;
     margin-top: 2%;
@@ -87,10 +112,11 @@
 .add-sold-item{
 
     margin:0;
+    margin-left:3%;
     display: flex;
     flex-wrap: wrap;
     align-items: flex-start;
-    justify-content: flex-end;
+    justify-content: center;
     height: min-content;
     max-width: 935px;
     width:100%;
@@ -108,12 +134,13 @@
 }
 
 .new-sale-component{
+    position: relative;
     display: flex;
     min-width: none;
     min-height: 35px;
     align-items: center;
     justify-content: center;
-    margin-left: 1%;
+    margin-left: 3.5%;
 }
 
 .form-container{
@@ -131,6 +158,7 @@
 
     display: flex;
     height: 100%;
+    width: max-content;
     justify-content: center;
 
 }
@@ -142,7 +170,91 @@
 }
 
 .new-sale-input{
-    height: min-content;
+    height: 100%;
     width: 50%;
-    min-width: none;
+    background-color: rgba(255, 255, 255, 0);
+    z-index: 10;
+}
+
+.details-container{
+    display:flex;
+    width: 100%;
+    background-color: rgb(124, 124, 124);
+}
+
+.detail{
+    margin:0;
+    width:25%;
+}
+
+.tickets-container{
+
+    width: 90%;
+    height: 92%;
+    margin: 0;
+    overflow-y: scroll;
+    background-color: white;
+}
+
+.add-products-button{
+    align-self: flex-end;
+}
+
+.new-product-input-container{
+    display: flex;
+    width: 100%;
+    height: 41%;
+    justify-content: center;
+
+}
+
+.new-product-input-container2{
+    display: flex;
+    height:100%;
+    width: 50%;
+    align-items: center;
+    justify-content: flex-start;
+}
+.new-product-label{
+    display: flex;
+    align-items: center;
+    width: 10%;
+    margin-left: 25%;
+}
+
+.new-product-title{
+    margin: 0;
+    padding: 0;
+    display: flex;
+    width: 100%;
+    justify-content: flex-start;
+    background: rgba(119, 182, 143, 0.822);
+}
+
+.new-product-exit-button{
+    all:unset;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    width:5%;
+    margin-right: 35%;
+    background: rgba(93, 146, 113, 0.822);
+}
+
+.new-product-exit-button:hover{
+    cursor: pointer;
+}
+.new-product-input{
+    display: flex;
+    width: 50%;
+    height: 15%;
+    align-items: center;
+}
+
+.error-paragraph{
+    display: none;
+    color: red;
+    margin: 0;
+    margin-right: 20%;
+
 }

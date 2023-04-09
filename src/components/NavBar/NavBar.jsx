@@ -32,7 +32,7 @@ function NavBar(){
                             <ul  className = 'user-options'>
 
                                 <li className='user-options-li'>
-                                    <Link to='/account' className='ham-menu-link'>
+                                    <Link to={`/${themeContext['userName']}/cuenta`} className='ham-menu-link'>
                                         cuenta
                                     </Link>
                                 </li>
