@@ -12,12 +12,11 @@ export default function Sale(props){
         const seconds = String(date.getSeconds()).padStart(2, '0');
         return `${year}/${month}/${day} ${hours}:${minutes}:${seconds}`;
       }
+
     return(
             <div className='sale-container'>
-                <label className='sold-name'>{props.data.name}</label>
-                <label className='sold-quantity'>{props.data.quantity}</label>
-                <label className='sold-unit-price'>${props.data.value}</label>
-                <label className='sold-total-price'>${props.data.value * props.data.quantity}</label>
+                <label className='sold-name'><p className='sale-name'>{props.data.ticketName}</p></label>
+                <label className='sold-total-price'><p className='sale-price'>${props.data.value}</p></label>
                 <time className='sold-product-time'><p className='time'>{transformDateFormat(props.data.time)}</p></time>
             </div>
     );

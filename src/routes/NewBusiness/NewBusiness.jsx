@@ -3,7 +3,8 @@ import React from "react";
 import ThemeContext from "../../contexts/themeContext";
 import { useNavigate } from "react-router-dom";
 import "./NewBusiness.css";
-import validateCUIL from "../../js files/validateCUIL";
+import validateCUIT from "../../js files/validateCUIT";
+import validateBusinessName from "../../js files/validateBusinessName";
 import SideBar from "../../components/SideBar/SideBar";
 import NavBar from "../../components/NavBar/NavBar";
 export default function NewBusiness(){
@@ -11,36 +12,45 @@ export default function NewBusiness(){
     const themeContext = React.useContext(ThemeContext);
     const navigate = useNavigate();
     function handleClick(){
+
         let name=document.querySelector("#new-business-input-1").value;
+
         let CUIT = document.getElementById("new-business-input-2").value;
 
-        if(1===1/*validateBusinessName(name) && validateCUIL(CUIL)*/){
+        let businessesNames = themeContext.businesses.map(business =>{ return business.name});
+
+        if(validateBusinessName(name,businessesNames) && validateCUIT(CUIT)){
 
 
             fetch(themeContext.APIURL+'user/newBusiness',{
                 method: 'POST',
                 headers: { "Content-Type": "application/json", "Authorization": themeContext.token },
                 mode:'cors',
-                body:JSON.stringify({name}),
+                body:JSON.stringify({name,CUIT}),
             }).then(res =>{
 
                     return res.json();
                     }).then((res)=>{
 
                         if(res.ok === true){
+                            console.log(res.data);
+                            themeContext.setBusinesses(res.data);
                             navigate('/');
                         }else{
+                            if(res.statusText === 'max-businesses-amount-reached') 
+                                return document.getElementById('max-business-size-reached').style.display = 'block';
+
                             themeContext.setToken(null);
                             navigate('/login');
                         }
-                    }).catch((em) =>{
-                        console.error(em);
+                    }).catch((err) =>{
+                        console.error(err);
                     });
         }else{
-            if(validateCUIL(CUIT)){
+            if(validateCUIT(CUIT)){
                 document.getElementById("new-business-name-error").style.display = "block";
             }else{
-                document.getElementById("new-business-cuil-error").style.display = "block";
+                document.getElementById("new-business-cuit-error").style.display = "block";
                 document.getElementById("new-business-name-error").style.display = "block";
             }
         }
@@ -63,28 +73,16 @@ export default function NewBusiness(){
                             <li className="new-business-flex-li">
                                 <label className="new-business-label"> nombre: </label>
                                 <input id="new-business-input-1" className="new-business-input" ></input>
-                                <p id ="new-business-name-error" className="new-business-error">debe ingresar un nombre</p>
+                                <p id ="new-business-name-error" className="new-business-error">debe ingresar un nombre y este debe ser único</p>
                             </li>
 
                             <li className="new-business-flex-li">
                                 <label className="new-business-label"> CUIT: </label>
                                 <input id="new-business-input-2" className="new-business-input" ></input>
-                                <p id="new-business-cuil-error" className="new-business-error"> debe ingresar un CUIT válido</p>
+                                <p id="new-business-cuit-error" className="new-business-error"> debe ingresar un CUIT válido</p>
                             </li>
-
-                            <li className="new-business-flex-li">
-                                <label className="new-business-label"><label className="opcional">(opcional)</label> Punto de venta n°: </label>
-                                <input id="new-business-input-3" className="new-business-input"></input>
-                            </li>
-
-                            <li className="new-business-flex-li">
-                                <label className="new-business-label"><label className="opcional">(opcional)</label> Punto de venta n°: </label>
-                                <input id="new-business-input-3" className="new-business-input"></input>
-                            </li>
-
-
                         </ul>
-                        
+                        <p id="max-business-size-reached" className="new-business-error">no puede agregar más negocios</p>
                     </div>
                     <div className="new-business-submit-button-container">
                         <button onClick={handleClick} className="new-business-submit-button"><label className="submit-button-label">crear</label></button>

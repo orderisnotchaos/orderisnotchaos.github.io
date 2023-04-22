@@ -42,7 +42,7 @@ export default function GeneralView(){
                 }
 
                 if(res.ok === true){
-
+                    console.log(res);
                     setBusinesses(res.businesses);
                 } 
             }).catch((em) =>{
@@ -65,7 +65,7 @@ export default function GeneralView(){
     incomes = businesses ? businesses.map((business)=>{
         let bIncome=0;
         business.Sales.forEach(sale=>{
-            bIncome+=sale.value*sale.quantity;
+            bIncome+=sale.value;
         })
         return bIncome;
     }): [];
@@ -80,9 +80,9 @@ export default function GeneralView(){
 
             if(days[days.length-1] !== day){
                 days.push(day);
-                dailyTotalIncome.push(sale.value*sale.quantity);
+                dailyTotalIncome.push(sale.value);
             }else{
-                dailyTotalIncome[days.length-1] += sale.value*sale.quantity;  
+                dailyTotalIncome[days.length-1] += sale.value;  
             }
           });
         }):days.push(0);

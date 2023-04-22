@@ -10,12 +10,14 @@ import ThemeContext from "../../contexts/themeContext";
 export default function Business(props){
 
     const themeContext = React.useContext(ThemeContext);
+    
     const navigate = useNavigate();
+
     function handleClick(){
         themeContext.setBName(props.name);
         navigate(`/${themeContext.userName}/${props.name}`);
     }
-    console.log(props);
+
     return (
         <>  
            
@@ -26,14 +28,12 @@ export default function Business(props){
                 <div className="bData">
                     <h4 className="last-sales">Ultimas ventas</h4>
                     <div className='sales-title'>
-                        <p className='sales-title-p'>nombre</p>
-                        <p className='sales-title-p'>cantidad</p>
-                        <p className='sales-title-p'>precio unitario</p>
-                        <p className='sales-title-p'>valor total</p>
-                        <p className='sales-title-p'>fecha</p>
+                        <p id='ticket-p' className='sales-title-p'><label className="ticket-label">nombre</label></p>
+                        <p id='valor-p' className='sales-title-p'>valor</p>
+                        <p id='date-p' className='sales-title-p'><label className="date-label">fecha</label></p>
                     </div>
                     <div className="business-product-sales-container">
-                        <Sales data={{sales:props.Sales}} key = {props}/>
+                        <Sales data={{sales:props.Sales.slice(0,9)}} key = {props}/>
                     </div>
                 </div>
             </div>

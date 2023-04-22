@@ -33,11 +33,11 @@ export default function NewUser(){
             method: 'POST',
             headers: { "Content-Type": "application/json" },
             mode:'cors',
-            body: JSON.stringify(userData)
+            body: JSON.stringify({...userData})
         }).then(res =>{
-            console.log(res);
+
             if(res.ok === true){
-                console.log('It did it!');
+
                 setUserCreationSuccess(true);
             }
         }).catch(e =>{

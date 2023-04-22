@@ -19,6 +19,7 @@ function Main(){
         
     },[themeContext,navigate]);
 
+    console.log(themeContext.businesses);
         return (
             <React.Fragment>
                 <NavBar />
@@ -27,7 +28,7 @@ function Main(){
 
                     <div id="content-wrapper" className="content-wrapper">
                         <div id="businesses-component" className="businesses-container"> 
-                            {themeContext.businesses !== undefined ?themeContext.businesses.map((business, i)=>{
+                            {themeContext.businesses.length !== 0 ?themeContext.businesses.map((business, i)=>{
 
                                 return (<Business {...business} businessesLength={themeContext.businesses.length} key= {i}/>);
                             }): <WelcomeComponent />}

@@ -11,8 +11,11 @@ import Account from './routes/Account/Account.jsx';
 import GeneralView from './routes/GeneralView/GeneralView.jsx';
 import AccountConfiguration from './routes/Configuration/Configuration.jsx';
 import NewBusiness from './routes/NewBusiness/NewBusiness';
-import BusinessDetails from './routes/BusinessDetails/BusinessDetails';
+import BusinessOverview from './routes/BusinessOverview/BusinessOverview';
 import AddSubscription from './routes/AddSubscription/AddSubscription';
+import AddSales from './routes/AddSales/AddSales';
+import SalesHistory from './routes/SalesHistory/SalesHistory';
+import BusinessDetails from './routes/BusinessDetails/BusinessDetails';
 
 function App() {
   const APIURL = 'http://127.0.0.1:8000/';
@@ -38,7 +41,10 @@ function App() {
             <Route exact path='/' element={<Main />} />
             <Route path = '/general-view' element={<GeneralView />} />
             <Route path ='/new-business' element={<NewBusiness />} />
-            <Route path = {`/${userName}/${bName}`} element ={<BusinessDetails />} />
+            <Route path = {`/${userName}/${bName}`} element ={<BusinessOverview />} />
+            <Route path = {`/${userName}/${bName}/ventas/agregar`} element={<AddSales bName={bName}/>} />
+            <Route path = {`/${userName}/${bName}/ventas/historial`} element={<SalesHistory />} />
+            <Route path = {`/${userName}/${bName}/detalles`} element={<BusinessDetails business={businesses.find(business => business.name === bName)}/>} />
             <Route path = {`/${userName}/subscripcion`} element = {<AddSubscription />} />
             <Route path= '/login' element= {<Login />} />
             <Route path= '/createUser' element={<NewUser />} />

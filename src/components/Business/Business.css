@@ -1,3 +1,22 @@
+#valor-p{
+    margin:0;
+    width:20%;
+}
+
+#ticket-p{
+    display: flex;
+    justify-content: flex-start;
+    margin: 0;
+    width:40%;
+}
+
+#date-p{
+    display: flex;
+    justify-content: center;
+    margin: 0;
+    width: 40%;
+}
+
 .business{
     border: 1px solid rgba(220, 231, 245, 0.822);
     display: flex;
@@ -33,11 +52,6 @@
     padding: 0;
     background-color: rgb(236, 236, 191);
 }
-.sales-title-p{
-    margin: 0;
-    width: 20%;
-    max-height: 25px;
-}
 
 .business-products-li{
     margin-left: 3%;
@@ -53,9 +67,17 @@
     height: 7%;
     width: 100%;
     margin:0px;
-    background-color: rgba(96, 192, 131, 0.76);
+    background-color: rgba(119, 182, 143, 0.822);
     border-bottom: 1px solid rgba(220, 231, 245, 0.822) ;
     
+}
+
+.date-label{
+    margin-left: 19%;
+}
+
+.ticket-label{
+    margin-left:33%;
 }
 
 .last-sales{
